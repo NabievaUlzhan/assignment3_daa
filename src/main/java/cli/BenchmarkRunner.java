@@ -88,6 +88,9 @@ public class BenchmarkRunner {
                 csv.add(row);
 
                 gid++;
+                if (gj.id.equals("S1")) {
+                    GraphVisualizer.show(g, pr.mst);
+                }
             }
         }
 
