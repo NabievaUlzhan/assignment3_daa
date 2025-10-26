@@ -1,0 +1,55 @@
+package cli;
+
+import graphs.Edge;
+import graphs.Graph;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+import java.util.Random;
+
+public class GraphVisualizer extends JPanel {
+    private final Graph g;
+    private final List<Edge> mst;
+    private final int[] x, y;
+
+    public GraphVisualizer(Graph g, List<Edge> mst) {
+        this.g = g; this.mst = mst;
+        Random r = new Random(42);
+        x = new int[g.n()];
+        y = new int[g.n()];
+        for (int i = 0; i < g.n(); i++) {
+            x[i] = 50 + r.nextInt(500);
+            y[i] = 50 + r.nextInt(400);
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g2) {
+        super.paintComponent(g2);
+        Graphics2D g = (Graphics2D) g2;
+        g.setStroke(new BasicStroke(1));
+        g.setColor(Color.GRAY);
+        for (List<Edge> list : this.g.adj()) {
+            for (Edge e : list)
+                g.drawLine(x[e.u], y[e.v], x[e.v], y[e.u]);
+        }
+        g.setColor(Color.GREEN.darker());
+        g.setStroke(new BasicStroke(2));
+        for (Edge e : mst)
+            g.drawLine(x[e.u], y[e.v], x[e.v], y[e.u]);
+
+        g.setColor(Color.BLUE);
+        for (int i = 0; i < this.g.n(); i++) {
+            g.fillOval(x[i]-5, y[i]-5, 10, 10);
+        }
+    }
+
+    public static void show(Graph g, List<Edge> mst) {
+        JFrame f = new JFrame("Bonus");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.add(new GraphVisualizer(g, mst));
+        f.setSize(600, 500);
+        f.setVisible(true);
+    }
+}
