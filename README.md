@@ -122,4 +122,50 @@ maintaining a heap (Prim) become comparable, leading to near-equal execution tim
 <img src="images/kruskal_ops&prim_ops(vertices).png"></img>
 
 **Execution Time: Kruskal vs Prim**
+
 <img src="images/kruskal_time&prim_time.png"></img>
+
+
+## Conclusions
+### Key Findings
+
+**Correctness**:  
+Both Prim’s and Kruskal’s algorithms consistently produced identical total MST costs across all 31 test graphs, confirming their algorithmic correctness and reliability.  
+
+**Efficiency**:  
+* In small dense graphs (10–30 vertices), both algorithms perform almost equally — average execution times below 0.5 ms and negligible operation differences.
+  
+* For medium graphs (50–300 vertices), Prim’s algorithm becomes clearly faster — averaging 1.33 ms versus 1.86 ms for Kruskal — due to its incremental heap-based edge selection rather than global edge sorting.
+  
+* In large graphs (400–1000 vertices), the performance gap widens further: Prim executes in about 5.38 ms while Kruskal requires 6.18 ms on average.
+  
+* In extra-large, sparse graphs (1300–3000 vertices), the two algorithms converge again (≈16.8 ms each) because the number of edges is relatively small and sorting overhead is no longer dominant.
+  
+**Operation count**:  
+Kruskal’s operation total is consistently higher — roughly 1.5 × Prim’s, reflecting the extra cost of global sorting and repeated union–find operations.
+  
+**Implementation trade-offs**:
+* Prim’s algorithm depends on adjacency lists and a priority queue; it’s slightly more complex to implement but scales efficiently with larger or denser graphs.  
+  
+* Kruskal’s algorithm is simpler and edge-list based, making it more intuitive for smaller or sparse graphs but less efficient as edge counts grow.
+
+* In all tested categories, both algorithms maintain correctness, but Prim demonstrates consistently better real-world efficiency in both execution time and operation count.
+
+| Situation                               | Recommended Algorithm | Reason                                                               |
+| --------------------------------------- | --------------------- | -------------------------------------------------------------------- |
+| Dense or moderately dense graphs        | **Prim**              | Avoids global sorting; processes edges locally with a heap.          |
+| Sparse graphs or pre-sorted edge inputs | **Kruskal**           | Simple and memory-efficient; handles small edge sets effectively.    |
+| Very large graphs (1000 + vertices)     | **Prim**              | Empirically ~15–25 % faster on average in runtime and operations.    |
+| When simplicity is prioritized          | **Kruskal**           | Straightforward edge-list approach, minimal data-structure overhead. |
+| Dynamic or incremental graph updates    | **Prim (heap-based)** | Easier to update MST incrementally without full recomputation.       |
+
+
+## BONUS SECTION: Graph Design in Java
+
+* each blue dot = one vertex  
+* gray lines = all edges from your Graph adjacency list  
+* green lines = edges that are part of your MST  
+
+<img width="728" height="610" alt="bonus_graph" src="https://github.com/user-attachments/assets/d79ffe45-d7ee-467f-b85e-7379ab68efc1" />
+
+
