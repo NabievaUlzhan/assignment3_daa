@@ -163,9 +163,10 @@ Kruskal’s operation total is consistently higher — roughly 1.5 × Prim’s, 
 ## BONUS SECTION: Graph Design in Java
 
 * each blue dot = one vertex  
-* gray lines = all edges from your Graph adjacency list  
-* green lines = edges that are part of your MST  
+* gray lines = all edges from Graph adjacency list  
+* green lines = edges that are part of MST  
 
 <img width="728" height="610" alt="bonus_graph" src="https://github.com/user-attachments/assets/d79ffe45-d7ee-467f-b85e-7379ab68efc1" />
+
 
 
